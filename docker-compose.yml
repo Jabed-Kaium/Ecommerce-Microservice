@@ -1,0 +1,45 @@
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+
+  zookeeper:
+    image: wurstmeister/zookeeper
+    container_name: zookeeper
+    ports:
+      - "22181:2181"
+    networks:
+      - microservices-net
+  kafka:
+    image: wurstmeister/kafka
+    container_name: ms_kafka
+    ports:
+      - "9092:9092"
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: localhost
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+    networks:
+      - microservices-net
+
+  redis:
+    image: redis
+    container_name: ms_redis
+    ports:
+      - "6379:6379"
+    networks:
+      - microservices-net
+
+networks:
+  microservices-net:
+    driver: bridge
+volumes:
+  postgres_data:

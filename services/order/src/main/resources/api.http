@@ -1,0 +1,21 @@
+### create order
+POST http://localhost:8060/api/v1/orders
+content-type: application/json
+
+{
+  "userId": 1,
+  "totalAmount": 200.0,
+  "orderItems": [
+    {
+      "productId": 1,
+      "quantity": 3,
+      "price": 699.99
+    },
+    {
+      "productId": 2,
+      "quantity": 1,
+      "price": 15.99
+    }
+  ]
+}
+

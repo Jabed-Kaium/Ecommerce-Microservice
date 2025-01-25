@@ -1,0 +1,57 @@
+### create category
+POST http://localhost:8070/api/v1/category
+content-type: application/json
+
+{
+  "name": "Clothing",
+  "description": "Men's and women's apparel"
+}
+
+### get all categories
+GET http://localhost:8070/api/v1/categories
+
+### get category by id
+GET http://localhost:8070/api/v1/categories/1
+
+###update category
+PUT http://localhost:8070/api/v1/categories/1
+content-type: application/json
+
+{
+  "name": "Electronics",
+  "description": "Devices, gadgets, and accessories all in one place"
+}
+
+### delete category
+DELETE http://localhost:8070/api/v1/categories/5
+
+
+### create product
+POST http://localhost:8070/api/v1/products
+content-type: application/json
+
+{
+  "name": "Men's Jacket",
+  "description": "Waterproof winter jacket for men",
+  "availableQuantity": 30,
+  "price": 89.99,
+  "categoryId": 3
+}
+
+### get all products
+GET http://localhost:8070/api/v1/products
+
+### get product by id
+GET http://localhost:8070/api/v1/products/1
+
+### update product
+PUT http://localhost:8070/api/v1/products/1
+content-type: application/json
+
+{
+  "name": "Smartphone",
+  "description": "Latest Android smartphone with 128GB storage",
+  "availableQuantity": 100,
+  "price": 699.99,
+  "categoryId": 1
+}

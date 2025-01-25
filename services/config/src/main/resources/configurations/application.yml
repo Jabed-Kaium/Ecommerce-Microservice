@@ -1,0 +1,19 @@
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+name:
+  value: spring
+spring:
+  cloud:
+    config:
+      override-system-properties: false
+  redis:
+    host: localhost
+    port: 6379
+    key-serializer: org.springframework.data.redis.serializer.StringRedisSerializer
+    value-serializer: org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer
+  cache:
+    type: redis
