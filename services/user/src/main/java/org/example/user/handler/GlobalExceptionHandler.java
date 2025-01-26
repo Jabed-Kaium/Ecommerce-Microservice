@@ -1,6 +1,7 @@
 package org.example.user.handler;
 
 import org.example.user.exception.UserNotFoundException;
+import org.example.user.exception.UserRegistrationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -22,6 +23,17 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
+                .body(errors);
+    }
+
+    @ExceptionHandler(UserRegistrationException.class)
+    public ResponseEntity<Map<String, String>> handleUserRegistrationException(UserRegistrationException e) {
+
+        var errors = new HashMap<String, String>();
+        errors.put("message", e.getMessage());
+
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(errors);
     }
 
