@@ -16,3 +16,11 @@ spring:
         jwt:
           issuer-uri: http://localhost:9090/realms/ecommerce-springboot-realm
           jwk-set-uri: http://localhost:9090/realms/ecommerce-springboot-realm/protocol/openid-connect/certs
+
+keycloak:
+  auth-server-url: http://localhost:9090
+  realm: ecommerce-springboot-realm
+  client-id: user-service
+  client-secret: vqE3I4Gvjz9ahfUaRiqJszZVZ37ljJQe
+  user-role-id: 14a459a0-83a4-4d59-b908-2750d1254f3e
+  user-role-name: USER

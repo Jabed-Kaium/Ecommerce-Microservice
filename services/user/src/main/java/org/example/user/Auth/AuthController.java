@@ -1,6 +1,7 @@
 package org.example.user.Auth;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,5 +16,9 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody RegisterRequest request) {
-        authService.register(request);   }
+        System.out.println("Hit Register Controller");
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(authService.register(request));
+    }
 }
