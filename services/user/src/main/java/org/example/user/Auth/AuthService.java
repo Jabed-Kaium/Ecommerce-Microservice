@@ -1,13 +1,11 @@
 package org.example.user.Auth;
 
-import jakarta.ws.rs.core.Link;
 import lombok.RequiredArgsConstructor;
 import org.example.user.exception.UserRegistrationException;
 import org.example.user.user.UserDto;
 import org.example.user.user.UserService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
