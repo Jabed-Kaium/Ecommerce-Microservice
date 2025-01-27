@@ -1,5 +1,6 @@
 package org.example.user.Auth;
 
+import jakarta.ws.rs.core.Link;
 import lombok.RequiredArgsConstructor;
 import org.example.user.exception.UserRegistrationException;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,9 +11,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -32,15 +31,11 @@ public class AuthService {
     @Value("${keycloak.client-secret}")
     private String keycloakClientSecret;
 
-    @Value("${keycloak.user-role-id}")
-    private String userRoleId;
-
     @Value("${keycloak.user-role-name}")
-    private String userRoleName;
+    private String roleName;
 
     public String register(RegisterRequest request) {
         try {
-            System.out.println("Hit Register Service");
             String adminAccessToken = getAdminAccessToken();
 
             String createUserUrl = keycloakServerUrl + "/admin/realms/" + keycloakRealm + "/users";
@@ -70,42 +65,53 @@ public class AuthService {
                 throw new UserRegistrationException("Failed to create user");
             }
 
-            System.out.println("User created");
+            String getUsersUrl = keycloakServerUrl + "/admin/realms/" + keycloakRealm + "/users?username=" + request.username();
+            HttpEntity<Void> getUserEntity = new HttpEntity<>(headers);
 
-//            String getUsersUrl = keycloakServerUrl + "/admin/realms/" + keycloakRealm + "/users?username=" + request.username();
-//            HttpEntity<Void> getUserEntity = new HttpEntity<>(headers);
-//
-//            ResponseEntity<Object[]> getUserResponse = restTemplate.exchange(
-//                    getUsersUrl,
-//                    HttpMethod.GET,
-//                    getUserEntity,
-//                    Object[].class
-//            );
-//
-//            if(getUserResponse.getBody() == null || getUserResponse.getBody().length == 0) {
-//                throw new UserRegistrationException("User not found after creation");
-//            }
-//            Map<String, Object> userResponse = (Map<String, Object>) getUserResponse.getBody()[0];
-//            String userId = (String) userResponse.get("id");
-//
-//            String assignRoleUrl = keycloakServerUrl + "/admin/realms/" + keycloakRealm + "/users/" + userId + "/role-mappings/realm";
-//
-//            Map<String, Object> rolePayload = new HashMap<>();
-//            rolePayload.put("id", userRoleId);
-//            rolePayload.put("name", userRoleName);
-//
-//            HttpEntity<Map<String, Object>[]> assignRoleEntity = new HttpEntity<>(new Map[]{rolePayload}, headers);
-//
-//            ResponseEntity<Void> assignRoleResponse = restTemplate.postForEntity(assignRoleUrl, assignRoleEntity, Void.class);
-//
-//            if(assignRoleResponse.getStatusCode() == HttpStatus.NO_CONTENT) {
-//                throw new UserRegistrationException("Failed to assign role to user");
-//            }
+            ResponseEntity<Object[]> getUserResponse = restTemplate.exchange(
+                    getUsersUrl,
+                    HttpMethod.GET,
+                    getUserEntity,
+                    Object[].class
+            );
+
+            if(getUserResponse.getBody() == null || getUserResponse.getBody().length == 0) {
+                throw new UserRegistrationException("User not found after creation");
+            }
+            Map<String, Object> userResponse = (Map<String, Object>) getUserResponse.getBody()[0];
+            String userId = (String) userResponse.get("id");
+
+            String getRoleUrl = keycloakServerUrl + "/admin/realms/" + keycloakRealm + "/roles/" + roleName;
+            HttpEntity<Void> getRoleEntity = new HttpEntity<>(headers);
+            ResponseEntity<Map> getRoleResponse = restTemplate.exchange(
+                    getRoleUrl,
+                    HttpMethod.GET,
+                    getRoleEntity,
+                    Map.class
+            );
+
+            if (getRoleResponse.getBody() == null) {
+                throw new UserRegistrationException("Failed to get role");
+            }
+
+            String assignRoleUrl = keycloakServerUrl + "/admin/realms/" + keycloakRealm + "/users/" + userId + "/role-mappings/realm";
+
+            List<Map<String, Object>> roleList = List.of(getRoleResponse.getBody());
+
+            System.out.println(getRoleResponse.getBody());
+
+            HttpEntity<List<Map<String, Object>>> assignRoleEntity = new HttpEntity<>(roleList, headers);
+
+            ResponseEntity<Void> assignRoleResponse = restTemplate.exchange(
+                    assignRoleUrl,
+                    HttpMethod.POST,
+                    assignRoleEntity,
+                    Void.class
+            );
 
             return "User registered successfully";
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-            throw new UserRegistrationException("Failed to register user");
+            throw new UserRegistrationException("Failed to register user: " + e.getMessage());
         }
     }
 

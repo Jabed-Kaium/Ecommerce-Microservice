@@ -22,5 +22,4 @@ keycloak:
   realm: ecommerce-springboot-realm
   client-id: user-service
   client-secret: vqE3I4Gvjz9ahfUaRiqJszZVZ37ljJQe
-  user-role-id: 14a459a0-83a4-4d59-b908-2750d1254f3e
   user-role-name: USER
