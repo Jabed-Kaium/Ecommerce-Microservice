@@ -3,6 +3,8 @@ package org.example.user.Auth;
 import jakarta.ws.rs.core.Link;
 import lombok.RequiredArgsConstructor;
 import org.example.user.exception.UserRegistrationException;
+import org.example.user.user.UserDto;
+import org.example.user.user.UserService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.security.core.userdetails.User;
@@ -18,6 +20,7 @@ import java.util.*;
 public class AuthService {
 
     private final RestTemplate restTemplate;
+    private final UserService userService;
 
     @Value("${keycloak.auth-server-url}")
     private String keycloakServerUrl;
@@ -107,6 +110,14 @@ public class AuthService {
                     HttpMethod.POST,
                     assignRoleEntity,
                     Void.class
+            );
+
+            userService.createUser(
+                    UserDto.builder()
+                            .firstName(request.firstname())
+                            .lastName(request.lastname())
+                            .email(request.email())
+                            .build()
             );
 
             return "User registered successfully";
