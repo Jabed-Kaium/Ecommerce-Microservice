@@ -99,8 +99,6 @@ public class AuthService {
 
             List<Map<String, Object>> roleList = List.of(getRoleResponse.getBody());
 
-            System.out.println(getRoleResponse.getBody());
-
             HttpEntity<List<Map<String, Object>>> assignRoleEntity = new HttpEntity<>(roleList, headers);
 
             ResponseEntity<Void> assignRoleResponse = restTemplate.exchange(
