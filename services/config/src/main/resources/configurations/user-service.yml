@@ -10,3 +10,16 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9090/realms/ecommerce-springboot-realm
+          jwk-set-uri: http://localhost:9090/realms/ecommerce-springboot-realm/protocol/openid-connect/certs
+
+keycloak:
+  auth-server-url: http://localhost:9090
+  realm: ecommerce-springboot-realm
+  client-id: user-service
+  client-secret: 10xuP2omgePUJrtXqGB35Tv2slORusqp
+  user-role-name: USER
