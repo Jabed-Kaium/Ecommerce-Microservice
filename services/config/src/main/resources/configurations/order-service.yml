@@ -21,5 +21,11 @@ application:
     product-url: http://localhost:8070/api/v1/products
     payment-url: http://localhost:8050/api/v1/payments
 
+keycloak:
+  auth-server-url: http://localhost:9090
+  realm: ecommerce-springboot-realm
+  client-id: order-service
+  client-secret: 29l1bWr2atQc6fPSiIuZESuLYAKv3MHn
+
 server:
   port: 8060
