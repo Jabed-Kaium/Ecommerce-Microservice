@@ -1,6 +1,7 @@
 package org.example.order.user;
 
 import lombok.RequiredArgsConstructor;
+import org.example.commondto.user.UserResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;

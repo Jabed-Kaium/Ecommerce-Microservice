@@ -1,7 +1,7 @@
 package org.example.order.inventory;
 
 import lombok.RequiredArgsConstructor;
-import org.example.order.order.OrderItem;
+import org.example.commondto.order.OrderItem;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;

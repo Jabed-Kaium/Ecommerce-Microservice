@@ -2,9 +2,9 @@ package org.example.order.order;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.example.commondto.payment.PaymentMethod;
 import org.example.order.history.OrderHistory;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 

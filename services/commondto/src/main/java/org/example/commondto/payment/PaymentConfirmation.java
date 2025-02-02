@@ -1,15 +1,16 @@
-package org.example.order.payment;
+package org.example.commondto.payment;
 
 import lombok.Builder;
-import org.example.commondto.payment.PaymentMethod;
 import org.example.commondto.user.UserResponse;
 
+
 @Builder
-public record PaymentRequest(
+public record PaymentConfirmation(
     Long orderId,
     String orderTrackingId,
     double totalAmount,
     PaymentMethod paymentMethod,
+    PaymentStatus paymentStatus,
     UserResponse user
 ) {
 }
