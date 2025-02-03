@@ -1,9 +1,7 @@
-package org.example.payment.kafka;
+package org.example.commondto.payment;
 
 import lombok.Builder;
-import org.example.payment.payment.PaymentMethod;
-import org.example.payment.payment.PaymentStatus;
-import org.example.payment.user.UserResponse;
+import org.example.commondto.user.UserResponse;
 
 
 @Builder

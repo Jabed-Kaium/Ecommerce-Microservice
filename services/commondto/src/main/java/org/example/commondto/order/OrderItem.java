@@ -1,4 +1,4 @@
-package org.example.order.order;
+package org.example.commondto.order;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;

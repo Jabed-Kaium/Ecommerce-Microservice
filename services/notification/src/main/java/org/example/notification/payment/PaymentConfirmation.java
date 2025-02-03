@@ -1,10 +1,7 @@
-package org.example.payment.kafka;
+package org.example.notification.payment;
 
 import lombok.Builder;
-import org.example.payment.payment.PaymentMethod;
-import org.example.payment.payment.PaymentStatus;
-import org.example.payment.user.UserResponse;
-
+import org.example.notification.user.UserResponse;
 
 @Builder
 public record PaymentConfirmation(
