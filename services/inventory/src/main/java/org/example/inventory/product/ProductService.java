@@ -25,6 +25,7 @@ public class ProductService {
     private final CategoryRepository categoryRepository;
     private final ProductMapper productMapper;
 
+    @CacheEvict(value = "productCache", allEntries = true)
     public ProductDto createProduct(ProductDto productDto) {
         Category category = categoryRepository.findById(productDto.categoryId())
                 .orElseThrow(() -> new CategoryNotFoundException("Category not found with id: " + productDto.categoryId()));    
@@ -43,6 +44,7 @@ public class ProductService {
         return productMapper.toProductDto(savedProduct);
     }
 
+    @Cacheable(value = "productCache")
     public List<ProductDto> getAllProducts() {
         return productRepository.findAll()
                 .stream()
@@ -50,12 +52,14 @@ public class ProductService {
                 .collect(Collectors.toList());
     }
 
+    @Cacheable(value = "productCache", key = "#id")
     public ProductDto getProductById(Long id) {
         return productRepository.findById(id)
                 .map(productMapper::toProductDto)
                 .orElseThrow(() -> new ProductNotFoundException("Product not found with id: " + id));
     }
 
+    @CacheEvict(value = "productCache", allEntries = true)
     public ProductDto updateProduct(Long id, ProductDto productDto) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new ProductNotFoundException("Product not found with id: " + id));
@@ -73,6 +77,7 @@ public class ProductService {
         return productMapper.toProductDto(productRepository.save(product));
     }
 
+    @CacheEvict(value = "productCache", allEntries = true)
     public void deleteProduct(Long id) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new ProductNotFoundException("Product not found with id: " + id));

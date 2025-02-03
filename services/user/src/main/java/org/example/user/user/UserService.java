@@ -18,6 +18,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
 
+    @CacheEvict(value = "userCache", allEntries = true)
     public UserDto createUser(UserDto userDto) {
         User user = userMapper.toUser(userDto);
         user.setCreatedAt(LocalDateTime.now());
@@ -26,6 +27,7 @@ public class UserService {
         return userMapper.toUserDto(userRepository.save(user));
     }
 
+    @Cacheable(value = "userCache")
     public List<UserDto> getAllUsers() {
         return userRepository.findAll()
                 .stream()
@@ -40,7 +42,7 @@ public class UserService {
                 .orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
     }
 
-    @CacheEvict(value = "userCache", key = "#id")
+    @CacheEvict(value = "userCache", allEntries = true)
     public UserDto updateUser(Long id, UserDto userDto) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
@@ -53,7 +55,7 @@ public class UserService {
         return userMapper.toUserDto(userRepository.save(user));
     }
 
-    @CacheEvict(value = "userCache", key = "#id")
+    @CacheEvict(value = "userCache", allEntries = true)
     public void deleteUser(Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
