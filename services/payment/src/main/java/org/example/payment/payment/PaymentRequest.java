@@ -1,7 +1,7 @@
 package org.example.payment.payment;
 
 import lombok.Builder;
-import org.example.payment.user.User;
+import org.example.payment.user.UserResponse;
 
 @Builder
 public record PaymentRequest(
@@ -9,6 +9,6 @@ public record PaymentRequest(
         String orderTrackingId,
         double totalAmount,
         PaymentMethod paymentMethod,
-        User user
+        UserResponse user
 ) {
 }

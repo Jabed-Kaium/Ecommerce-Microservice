@@ -15,19 +15,19 @@ public class PaymentConsumer {
     private final EmailService emailService;
 
     @KafkaListener(topics = "payment-topic", groupId = "notification-service-group")
-    public void consumePaymentTopic(String rawMessage) throws JsonProcessingException {
-        PaymentMessage paymentMessage = objectMapper.readValue(rawMessage, PaymentMessage.class);
-        String name = paymentMessage.user().firstName() + " " + paymentMessage.user().lastName();
-        String subject = "Payment Confirmation: " + paymentMessage.orderTrackingId();
-        String to = paymentMessage.user().email();
-        String body = "Dear " + name + ",\n\n" +
-                "Your payment has been processed successfully!\n" +
-                "Order Tracking ID: " + paymentMessage.orderTrackingId() + "\n" +
-                "Payment Method: " + paymentMessage.paymentMethod() + "\n" +
-                "Total Amount: $" + paymentMessage.totalAmount() + "\n" +
-                "Payment Status: " + paymentMessage.paymentStatus() + "\n\n" +
-                "Thank you for shopping with us!\n\nBest regards,\nYour Store Team";
+    public void consumePaymentTopic(PaymentConfirmation paymentConfirmation) throws JsonProcessingException {
 
-        emailService.sendEmail(to, subject, body);
+            String name = paymentConfirmation.user().firstName() + " " + paymentConfirmation.user().lastName();
+            String subject = "Payment Confirmation: " + paymentConfirmation.orderTrackingId();
+            String to = paymentConfirmation.user().email();
+            String body = "Dear " + name + ",\n\n" +
+                    "Your payment has been processed successfully!\n" +
+                    "Order Tracking ID: " + paymentConfirmation.orderTrackingId() + "\n" +
+                    "Payment Method: " + paymentConfirmation.paymentMethod() + "\n" +
+                    "Total Amount: $" + paymentConfirmation.totalAmount() + "\n" +
+                    "Payment Status: " + paymentConfirmation.paymentStatus() + "\n\n" +
+                    "Thank you for shopping with us!\n\nBest regards,\nYour Store Team";
+
+            emailService.sendEmail(to, subject, body);
     }
 }

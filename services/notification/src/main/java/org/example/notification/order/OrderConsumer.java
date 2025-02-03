@@ -1,10 +1,8 @@
 package org.example.notification.order;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.example.notification.email.EmailService;
-import org.example.notification.payment.PaymentMessage;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
@@ -12,22 +10,21 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class OrderConsumer {
 
-    private final ObjectMapper objectMapper;
     private final EmailService emailService;
 
     @KafkaListener(topics = "order-topic", groupId = "notification-service-group")
-    public void consumeOrderTopic(String rawMessage) throws JsonProcessingException {
-        OrderMessage orderMessage = objectMapper.readValue(rawMessage, OrderMessage.class);
-        String name = orderMessage.user().firstName() + " " + orderMessage.user().lastName();
-        String subject = "Order Confirmation: " + orderMessage.trackingId();
-        String to = orderMessage.user().email();
+    public void consumeOrderTopic(OrderConfirmation orderConfirmation) throws JsonProcessingException {
+
+        String name = orderConfirmation.user().firstName() + " " + orderConfirmation.user().lastName();
+        String subject = "Order Confirmation: " + orderConfirmation.trackingId();
+        String to = orderConfirmation.user().email();
         String body = "Dear " + name + ",\n\n" +
                 "Thank you for your order! Here are the details:\n" +
-                "Order Tracking ID: " + orderMessage.trackingId() + "\n" +
-                "Total Amount: $" + orderMessage.totalAmount() + "\n\n" +
+                "Order Tracking ID: " + orderConfirmation.trackingId() + "\n" +
+                "Total Amount: $" + orderConfirmation.totalAmount() + "\n\n" +
                 "Products:\n";
 
-        for (OrderItem orderItem : orderMessage.products()) {
+        for (OrderItem orderItem : orderConfirmation.products()) {
             body += " - Product ID: " + orderItem.productId() +
                     ", Quantity: " + orderItem.quantity() +
                     ", Price: $" + orderItem.price() + "\n";

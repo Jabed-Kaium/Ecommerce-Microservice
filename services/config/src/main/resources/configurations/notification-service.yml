@@ -11,6 +11,7 @@ spring:
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
         spring.json.trusted.packages: '*'
+        spring.json.type.mapping: orderConfirmation:org.example.notification.order.OrderConfirmation, paymentConfirmation:org.example.notification.payment.PaymentConfirmation
 
   mail:
     host: smtp.gmail.com
