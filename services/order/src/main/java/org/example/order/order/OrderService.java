@@ -74,15 +74,15 @@ public class OrderService {
                         .build()
         );
 
-        paymentClient.confirmOrderPayment(
-                PaymentRequest.builder()
-                        .orderId(savedOrder.getId())
-                        .orderTrackingId(savedOrder.getTrackingId())
-                        .totalAmount(savedOrder.getTotalAmount())
-                        .paymentMethod(orderRequest.paymentMethod())
-                        .user(user)
-                        .build()
-        );
+//        paymentClient.confirmOrderPayment(
+//                PaymentRequest.builder()
+//                        .orderId(savedOrder.getId())
+//                        .orderTrackingId(savedOrder.getTrackingId())
+//                        .totalAmount(savedOrder.getTotalAmount())
+//                        .paymentMethod(orderRequest.paymentMethod())
+//                        .user(user)
+//                        .build()
+//        );
 
         return OrderResponse.builder()
                 .userId(savedOrder.getUserId())
