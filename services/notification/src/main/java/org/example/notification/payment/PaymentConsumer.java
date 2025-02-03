@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class PaymentConsumer {
 
-    private final ObjectMapper objectMapper;
     private final EmailService emailService;
 
     @KafkaListener(topics = "payment-topic", groupId = "notification-service-group")
