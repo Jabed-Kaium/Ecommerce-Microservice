@@ -7,6 +7,12 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9090/realms/ecommerce-springboot-realm
+          jwk-set-uri: http://localhost:9090/realms/ecommerce-springboot-realm/protocol/openid-connect/certs
 
 server:
   port: 8070

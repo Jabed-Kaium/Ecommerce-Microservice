@@ -14,6 +14,13 @@ spring:
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       properties:
         spring.json.type.mapping: orderConfirmation:org.example.order.kafka.OrderConfirmation
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9090/realms/ecommerce-springboot-realm
+          jwk-set-uri: http://localhost:9090/realms/ecommerce-springboot-realm/protocol/openid-connect/certs
+
 
 application:
   config:
