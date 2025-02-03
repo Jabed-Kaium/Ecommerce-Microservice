@@ -6,6 +6,7 @@ import org.example.inventory.product.ProductDto;
 import org.example.inventory.product.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public class CategoryController {
 
     private final CategoryService categoryService;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<CategoryDto> createCategory(@RequestBody @Valid CategoryDto categoryDto) {
         return ResponseEntity
@@ -24,6 +26,7 @@ public class CategoryController {
                 .body(categoryService.createCategory(categoryDto));
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping
     public ResponseEntity<List<CategoryDto>> getAllCategories() {
         return ResponseEntity
@@ -31,6 +34,7 @@ public class CategoryController {
                 .body(categoryService.getAllCategories());
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping("/{id}")
     public ResponseEntity<CategoryDto> getCategoryById(@PathVariable("id") Long id) {
         return ResponseEntity
@@ -38,6 +42,7 @@ public class CategoryController {
                 .body(categoryService.getCategoryById(id));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<CategoryDto> updateCategory(@PathVariable("id") Long id, @RequestBody @Valid CategoryDto categoryDto) {
         return ResponseEntity
@@ -45,6 +50,7 @@ public class CategoryController {
                 .body(categoryService.updateCategory(id, categoryDto));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteCategory(@PathVariable("id") Long id) {
         categoryService.deleteCategory(id);

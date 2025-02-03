@@ -1,5 +1,6 @@
 ### create order
-POST http://localhost:8060/api/v1/orders
+# need Authorization (Bearer Token) with Role 'ADMIN', 'USER'
+POST http://localhost:8080/api/v1/orders
 content-type: application/json
 
 {
@@ -19,3 +20,14 @@ content-type: application/json
   ]
 }
 
+### get all orders
+# need Authorization (Bearer Token) with Role 'ADMIN'
+GET http://localhost:8080/api/v1/orders
+
+### get order by id
+# need Authorization (Bearer Token) with Role 'ADMIN', 'USER'
+GET http://localhost:8080/api/v1/orders/1
+
+### get orders by user id
+# need Authorization (Bearer Token) with Role 'ADMIN', 'USER'
+GET http://localhost:8080/api/v1/orders/user/1

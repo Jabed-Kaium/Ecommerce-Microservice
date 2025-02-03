@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,6 +16,7 @@ public class ProductController {
 
     private final ProductService productService;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<ProductDto> createProduct(@RequestBody @Valid ProductDto productDto) {
         return ResponseEntity
@@ -22,6 +24,7 @@ public class ProductController {
                 .body(productService.createProduct(productDto));
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping
     public ResponseEntity<List<ProductDto>> getAllProducts() {
         return ResponseEntity
@@ -29,6 +32,7 @@ public class ProductController {
                 .body(productService.getAllProducts());
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping("/{id}")
     public ResponseEntity<ProductDto> getProductById(@PathVariable("id") Long id) {
         return ResponseEntity
@@ -36,6 +40,7 @@ public class ProductController {
                 .body(productService.getProductById(id));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<ProductDto> updateProduct(@PathVariable("id") Long id, @RequestBody @Valid ProductDto productDto) {
         return ResponseEntity
@@ -43,6 +48,7 @@ public class ProductController {
                 .body(productService.updateProduct(id, productDto));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteProduct(@PathVariable("id") Long id) {
         productService.deleteProduct(id);
@@ -51,6 +57,7 @@ public class ProductController {
                 .body("Product deleted successfully with id: " + id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/purchase")
     public void purchaseProducts(@RequestBody List<ProductPurchaseRequest> productPurchaseRequests) {
         productService.purchaseProducts(productPurchaseRequests);

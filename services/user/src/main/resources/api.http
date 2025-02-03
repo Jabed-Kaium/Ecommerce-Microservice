@@ -1,5 +1,6 @@
 ### create a new user
-POST http://localhost:8090/api/v1/users
+# need Authorization (Bearer Token) with Role 'ADMIN'
+POST http://localhost:8080/api/v1/users
 Content-Type: application/json
 
 {
@@ -9,13 +10,16 @@ Content-Type: application/json
 }
 
 ### get all users
-GET http://localhost:8090/api/v1/users
+# need Authorization (Bearer Token) with Role 'ADMIN'
+GET http://localhost:8080/api/v1/users
 
 ### get user by id
-GET http://localhost:8090/api/v1/users/1
+# need Authorization (Bearer Token) with Role 'ADMIN'
+GET http://localhost:8080/api/v1/users/1
 
 ### update user by id
-PUT http://localhost:8090/api/v1/users/1
+# need Authorization (Bearer Token) with Role 'ADMIN'
+PUT http://localhost:8080/api/v1/users/1
 Content-Type: application/json
 
 {
@@ -25,9 +29,11 @@ Content-Type: application/json
 }
 
 ### delete user by id
-DELETE http://localhost:8090/api/v1/users/1
+# need Authorization (Bearer Token) with Role 'ADMIN'
+DELETE http://localhost:8080/api/v1/users/1
 
 ### register user
+# # no need Authenticatoin or Authorization
 POST http://localhost:8080/api/v1/register
 Content-Type: application/json
 
@@ -40,6 +46,7 @@ Content-Type: application/json
 }
 
 ### login user
+# no need Authenticatoin or Authorization
 POST http://localhost:8080/api/v1/login
 Content-Type: application/json
 
