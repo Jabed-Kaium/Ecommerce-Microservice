@@ -32,7 +32,7 @@ keycloak:
   auth-server-url: http://localhost:9090
   realm: ecommerce-springboot-realm
   client-id: order-service
-  client-secret: lSBLN3UIxQ2qnpA0lfY3spx8TfJ0MviO
+  client-secret: tBP8FKOKTCIt4nhMmIiLSPA8TtCmkkYr
 
 server:
   port: 8060

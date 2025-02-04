@@ -21,5 +21,5 @@ keycloak:
   auth-server-url: http://localhost:9090
   realm: ecommerce-springboot-realm
   client-id: user-service
-  client-secret: dGYGIoA8dJsmEDgbbdKts55ndkfkydNH
+  client-secret: FE540DNHbyoTvL4KOQljzAwZaY4uYgxh
   user-role-name: USER
