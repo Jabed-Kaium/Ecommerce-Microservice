@@ -1,4 +1,4 @@
-package org.example.user.Auth;
+package org.example.user.auth;
 
 import lombok.RequiredArgsConstructor;
 import org.example.user.exception.LoginException;

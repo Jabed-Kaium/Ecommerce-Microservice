@@ -1,4 +1,4 @@
-package org.example.user.Auth;
+package org.example.user.auth;
 
 public record LoginRequest(
         String username,
