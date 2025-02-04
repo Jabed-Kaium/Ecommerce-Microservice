@@ -4,6 +4,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.*;
 
+import java.io.Serializable;
+
 @Builder
 public record ProductDto(
         @NotNull(message = "Name is required")
@@ -15,5 +17,5 @@ public record ProductDto(
         double price,
         @NotNull(message = "Category id is required")
         Long categoryId
-) {
+) implements Serializable {
 }
