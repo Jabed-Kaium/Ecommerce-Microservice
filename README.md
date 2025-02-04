@@ -25,6 +25,8 @@ Open terminal and run
 All the dependent services (PostgreSQL, Zookeeper, Kafka, Keycloak, Redis) will start running in Docker.  
 
 #### Setup Keycloak
+- Open a browser and go to "http://localhost:9090/admin/master/console/"
+- Login with username and password defined in docker-compose file (here, username: admin, password: admin)
 - Create a new Realm "ecommerce-springboot-realm"
 - Add Realm role "ADMIN" and "USER"
 - Create a Client "user-service"
