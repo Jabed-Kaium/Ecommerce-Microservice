@@ -7,8 +7,11 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: root
+      POSTGRES_DB: keycloak  # Creates the database automatically
     volumes:
       - ./postgres_data:/var/lib/postgresql/data
+    networks:
+      - microservices-net
 
   zookeeper:
     image: wurstmeister/zookeeper
@@ -45,6 +48,11 @@ services:
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://postgres:5432/keycloak
+      KC_DB_USERNAME: postgres
+      KC_DB_PASSWORD: root
+      KC_HOSTNAME: localhost
     ports:
       - "9090:8080"
     depends_on:
