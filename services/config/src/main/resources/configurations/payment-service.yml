@@ -21,6 +21,14 @@ spring:
           issuer-uri: http://localhost:9090/realms/ecommerce-springboot-realm
           jwk-set-uri: http://localhost:9090/realms/ecommerce-springboot-realm/protocol/openid-connect/certs
 
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    enabled: false # Disable Swagger UI in the service
+  servers:
+    - url: http://localhost:8080 # Gateway URL
+      description: API Gateway
 
 server:
   port: 8050
