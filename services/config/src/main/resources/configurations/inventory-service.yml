@@ -16,3 +16,12 @@ spring:
 
 server:
   port: 8070
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    enabled: false # Disable Swagger UI in the service
+  servers:
+    - url: http://localhost:8080 # Gateway URL
+      description: API Gateway

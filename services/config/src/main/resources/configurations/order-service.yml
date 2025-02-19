@@ -34,5 +34,14 @@ keycloak:
   client-id: order-service
   client-secret: tBP8FKOKTCIt4nhMmIiLSPA8TtCmkkYr
 
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    enabled: false # Disable Swagger UI in the service
+  servers:
+    - url: http://localhost:8080 # Gateway URL
+      description: API Gateway
+
 server:
   port: 8060

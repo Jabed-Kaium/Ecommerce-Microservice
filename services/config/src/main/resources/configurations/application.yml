@@ -17,3 +17,7 @@ spring:
     value-serializer: org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer
   cache:
     type: redis
+
+swagger:
+  ui:
+    url: http://localhost:8080

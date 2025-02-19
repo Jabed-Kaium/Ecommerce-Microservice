@@ -25,3 +25,45 @@ spring:
           predicates:
             - Path=/api/v1/payments/**
 
+        - id: user-service-api-docs
+          uri: http://localhost:8090
+          predicates:
+            - Path=/user-service/v3/api-docs/**
+          filters:
+            - RewritePath=/user-service/(?<path>.*), /$\{path}
+
+        - id: inventory-service-api-docs
+          uri: http://localhost:8070
+          predicates:
+            - Path=/inventory-service/v3/api-docs/**
+          filters:
+            - RewritePath=/inventory-service/(?<path>.*), /$\{path}
+
+        - id: order-service-api-docs
+          uri: http://localhost:8060
+          predicates:
+            - Path=/order-service/v3/api-docs/**
+          filters:
+            - RewritePath=/order-service/(?<path>.*), /$\{path}
+
+        - id: payment-service-api-docs
+          uri: http://localhost:8050
+          predicates:
+            - Path=/payment-service/v3/api-docs/**
+          filters:
+            - RewritePath=/payment-service/(?<path>.*), /$\{path}
+
+springdoc:
+  swagger-ui:
+    urls:
+      - name: User Service
+        url: /user-service/v3/api-docs
+      - name: Inventory Service
+        url: /inventory-service/v3/api-docs
+      - name: Order Service
+        url: /order-service/v3/api-docs
+      - name: Payment Service
+        url: /payment-service/v3/api-docs
+    path: /swagger-ui.html
+
+
