@@ -35,3 +35,6 @@ All the dependent services (PostgreSQL, Zookeeper, Kafka, Keycloak, Redis) will 
 - Create another Client "order-service" in the same way
 - Assign role "realm-admin" from realm-management and "ADMIN" from Realm roles.
 - Add a new user and assign role "ADMIN"
+
+#### API Documentation
+After running all services, go to http://localhost:8080/swagger-ui.html to get all API documentation.
